@@ -124,7 +124,7 @@ int main(void)
 
 		HAL_Delay(1000);
 
-		printf("\r\n %lu \r\n", val);
+		printf("\r\n ADC value:%lu \r\n", val);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
