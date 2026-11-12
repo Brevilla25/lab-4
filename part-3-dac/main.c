@@ -116,19 +116,19 @@ int main(void)
 	while (1)
 	{
 		uint32_t timeout = 100;
-		double increment = 0;
+
 		double val = 0;
 		double dval = 0;
 		double adcVal = 0;
 		double dacVal = 0;
 		double diff = 0;
 
-		for (increment; increment <= 4096; increment ++) {
+		for (int32_t increment = 0; increment <= 4095; increment ++) {
 			HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, increment);
 			dval = HAL_DAC_GetValue(&hdac1, DAC_CHANNEL_1);
 			// Vout = Vref * (D/2^n)
-			dacVal = 3.3 * (dval/4096);
-
+			dacVal = 3.3 * (dval/4095);
+			HAL_Delay(100);
 
 			//activate the ADC and use regular conversion
 			HAL_ADC_Start(&hadc1);
@@ -137,12 +137,35 @@ int main(void)
 				//acquire the converted data and read it into a variable
 				val =  HAL_ADC_GetValue(&hadc1);
 			}
-			adcVal = 3.3 * (val/4096);
+			adcVal = 3.3 * (val/4095);
 			diff = adcVal - dacVal;
 
 			HAL_ADC_Stop(&hadc1);
 			//Total sweep time equals 4096 × delay_ms
-			HAL_Delay(4096);
+			HAL_Delay(100);
+
+			printf("\r\n DAC Value: %f V, ADC Value: %f, (ADC - DAC): %f V \r\n", dacVal,adcVal, diff);
+		}
+		for (int32_t increment = 4095; increment >= 0; increment --) {
+			HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, increment);
+			dval = HAL_DAC_GetValue(&hdac1, DAC_CHANNEL_1);
+			// Vout = Vref * (D/2^n)
+			dacVal = 3.3 * (dval/4095);
+			HAL_Delay(100);
+
+			//activate the ADC and use regular conversion
+			HAL_ADC_Start(&hadc1);
+			//wait for the conversion to finish
+			if (HAL_ADC_PollForConversion(&hadc1, timeout) == HAL_OK) {
+				//acquire the converted data and read it into a variable
+				val =  HAL_ADC_GetValue(&hadc1);
+			}
+			adcVal = 3.3 * (val/4095);
+			diff = adcVal - dacVal;
+
+			HAL_ADC_Stop(&hadc1);
+			//Total sweep time equals 4096 × delay_ms
+			HAL_Delay(100);
 
 			printf("\r\n DAC Value: %f V, ADC Value: %f, (ADC - DAC): %f V \r\n", dacVal,adcVal, diff);
 		}
