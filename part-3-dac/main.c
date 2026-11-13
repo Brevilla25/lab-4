@@ -141,7 +141,7 @@ int main(void)
 			diff = adcVal - dacVal;
 
 			HAL_ADC_Stop(&hadc1);
-			//Total sweep time equals 4096 × delay_ms
+		
 			HAL_Delay(100);
 
 			printf("\r\n DAC Value: %f V, ADC Value: %f, (ADC - DAC): %f V \r\n", dacVal,adcVal, diff);
@@ -164,7 +164,7 @@ int main(void)
 			diff = adcVal - dacVal;
 
 			HAL_ADC_Stop(&hadc1);
-			//Total sweep time equals 4096 × delay_ms
+
 			HAL_Delay(100);
 
 			printf("\r\n DAC Value: %f V, ADC Value: %f, (ADC - DAC): %f V \r\n", dacVal,adcVal, diff);
