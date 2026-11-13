@@ -120,9 +120,9 @@ int main(void)
 #define M_PI 3.14159265358979323846
 #endif
 	printf("\r\nHello from Nucleo-L4R5ZI-P!\r\n");
-	// Generate 10 points along a sine wave
+	//N = 32
 	int steps = 32;
-	double amplitude = 450;
+	double amplitude = 1500;
 
 	for (int i = 0; i < steps; i++) {
 		double x = (double)i / (steps) * 2.0 * M_PI;
