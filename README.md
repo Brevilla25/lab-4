@@ -13,7 +13,8 @@ The LDRs resistance changes with exposure to light, the ADC measures voltage not
 
 
 #Part 3
- 3.  If B = 9, what is Vout? Express your answer in terms of Vref . Use the DAC mode that
+
+3.  If B = 9, what is Vout? Express your answer in terms of Vref . Use the DAC mode that
 provides the best resolution available on your MCU (refer to the data sheet).
 
 - Vout = (B / 2ⁿ) × Vref, DAC can use an 8-bit or a 12-bit, 12-bit is the better resolution, so
